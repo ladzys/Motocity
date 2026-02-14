@@ -1,189 +1,182 @@
-# MotoCity 🏍️
+# 🏍 MotoCity – Motorbike Rental Web Application
 
-**Premium Motorbike Rental Management System**
-
-MotoCity is a fully functional, Object-Oriented PHP web application for managing motorbike rentals. Built with security and user experience in mind, it demonstrates modern PHP development practices including OOP design, PDO database connections, role-based access control, and comprehensive input validation.
-
-[![PHP](https://img.shields.io/badge/PHP-7.4%2B-blue)](https://www.php.net/)
-[![MySQL](https://img.shields.io/badge/MySQL-5.7%2B-orange)](https://www.mysql.com/)
-[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
-
-## ✨ Features
-
-### For Users
-- 🔐 **Secure Registration & Login** - Password hashing, session management
-- 🔍 **Smart Search** - Find bikes by brand, model, or description (partial match)
-- 🏍️ **Browse Motorbikes** - View all available bikes with details and pricing
-- 📅 **Easy Booking** - Rent bikes with custom start datetime
-- 📊 **Rental History** - View all your past and active rentals
-- 💰 **Transparent Pricing** - Automatic cost calculation based on duration
-
-### For Administrators
-- 📈 **Dashboard** - Overview of system statistics
-- ➕ **Bike Management** - Add, edit, and delete motorbikes
-- 🔄 **Rental Management** - View all rentals and process returns
-- 👥 **User Overview** - Monitor all user activities
-- ⚡ **Quick Actions** - Fast access to common tasks
-
-## 🛠️ Technology Stack
-
-- **Backend:** PHP 7.4+ (Object-Oriented)
-- **Database:** MySQL 5.7+ with PDO
-- **Architecture:** MVC-inspired with OOP classes
-- **Security:** Prepared statements, password hashing, session security
-- **UI:** Responsive HTML5/CSS3
-
-## 🔒 Security Features
-
-✓ **SQL Injection Prevention** - All queries use prepared statements  
-✓ **Password Security** - BCrypt hashing with `password_hash()`  
-✓ **Session Security** - HTTP-only cookies, session regeneration  
-✓ **Input Validation** - Server-side validation on all inputs  
-✓ **XSS Prevention** - Output escaping with `htmlspecialchars()`  
-✓ **Role-Based Access** - Admin and User roles with proper checks
-
-## 📦 Installation
-
-### Prerequisites
-- PHP 7.4 or higher
-- MySQL 5.7 or higher
-- Apache/Nginx or PHP built-in server
-
-### Quick Start
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/ladzys/Motocity.git
-   cd Motocity
-   ```
-
-2. **Configure database**
-   ```bash
-   # Edit config.php with your database credentials
-   mysql -u username -p < database.sql
-   ```
-
-3. **Start the server**
-   ```bash
-   php -S localhost:8000
-   ```
-
-4. **Access the application**
-   ```
-   http://localhost:8000
-   ```
-
-5. **Login with default admin**
-   - Username: `admin`
-   - Password: `admin123`
-
-📖 **For detailed installation instructions, see [INSTALLATION.md](INSTALLATION.md)**
-
-## 📚 Documentation
-
-- **[INSTALLATION.md](INSTALLATION.md)** - Complete setup guide
-- **[IMPLEMENTATION.md](IMPLEMENTATION.md)** - Technical architecture details
-- **[USER_GUIDE.md](USER_GUIDE.md)** - How to use the system
-- **[test_connection.php](test_connection.php)** - Database verification script
-
-## 🗂️ Project Structure
-
-```
-/motocity
-├── admin/                 # Admin panel pages
-│   ├── dashboard.php     # Admin overview
-│   ├── motorbikes.php    # Bike CRUD operations
-│   └── rentals.php       # Rental management
-├── classes/              # OOP classes
-│   ├── Database.php      # PDO connection (Singleton)
-│   ├── User.php          # Authentication & authorization
-│   ├── Motorbike.php     # Bike operations
-│   └── Rental.php        # Rental operations
-├── user/                 # User pages
-│   ├── dashboard.php     # User overview
-│   ├── bikes.php         # Browse & search bikes
-│   ├── rent.php          # Rental booking
-│   └── rentals.php       # Rental history
-├── config.php           # Configuration
-├── database.sql         # Database schema
-├── index.php           # Landing page
-├── login.php           # Authentication
-├── register.php        # User registration
-└── logout.php          # Session cleanup
-```
-
-## 💻 Code Quality
-
-- **Lines of Code:** 2000+
-- **Architecture:** Object-Oriented PHP
-- **Design Pattern:** Singleton for database connection
-- **Security:** Industry-standard practices
-- **Documentation:** Comprehensive inline comments
-
-## 🚀 Features Implementation
-
-### Cost Calculation Algorithm
-```php
-Duration = End DateTime - Start DateTime
-Days = Complete days + Round up partial days
-Minimum = 1 day
-Total Cost = Days × Price per Day
-```
-
-### Search Implementation
-Uses SQL LIKE queries for partial matching across:
-- Brand names
-- Model names
-- Descriptions
-
-### Session Management
-- HTTP-only cookies
-- Session regeneration on login
-- Secure session cleanup
-- Role-based access control
-
-## 🧪 Testing
-
-Run the connection test after installation:
-```bash
-http://localhost:8000/test_connection.php
-```
-
-This verifies:
-- Database connection
-- Table structure
-- Sample data
-- Admin account
-
-## 📸 Screenshots
-
-### Landing Page
-Modern gradient design with call-to-action buttons
-
-### Admin Dashboard
-Statistics overview with quick access to management features
-
-### User Interface
-Clean, intuitive interface for browsing and renting bikes
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📄 License
-
-This project is open source and available under the MIT License.
-
-## 👨‍💻 Author
-
-**ladzys**
-
-## 🙏 Acknowledgments
-
-- Built as a demonstration of Object-Oriented PHP development
-- Implements security best practices
-- Focuses on user experience and clean code
+MotoCity is a dynamic web application built using **Object-Oriented PHP** and **MySQL**.  
+The system simulates a city-based motorbike rental platform with secure authentication, role-based access control, and automated rental cost calculation.
 
 ---
 
-**Made with ❤️ for motorbike enthusiasts**
+## 🚀 Project Overview
+
+MotoCity allows users to rent and return motorbikes from different locations within a city.  
+The system supports two roles:
+
+- **Administrator**
+- **User**
+
+Each role has specific permissions and functionalities within the system.
+
+---
+
+## 👤 Authentication
+
+- User & Administrator registration
+- Secure login/logout using PHP sessions
+- Role-based dashboards
+- Input validation and secure password handling
+
+---
+
+## 🏍 Motorbike Management
+
+**Administrator can:**
+- Insert new motorbikes
+- Edit existing motorbikes
+- View all motorbikes
+- View available motorbikes
+- View currently rented motorbikes
+- Search motorbikes (partial match supported)
+
+Each motorbike includes:
+- Code
+- Renting Location
+- Description
+- Cost per hour
+- Availability status
+
+---
+
+## 📄 Rental System
+
+**User can:**
+- View available motorbikes
+- Search motorbikes (by code, location, description)
+- Rent a motorbike (with start date/time input)
+- Receive notification showing cost per hour
+- Return rented motorbike
+- Receive notification showing total rental cost
+- View current rentals
+- View completed rental history
+
+**Administrator can:**
+- Rent a motorbike for a specific user
+- Return a motorbike for a specific user
+- View users currently renting bikes
+
+---
+
+## 💰 Rental Cost Calculation
+
+The total rental cost is calculated dynamically:
+
+Total Cost = (Return Time - Start Time) × Cost Per Hour
+
+
+The system ensures:
+- Motorbike must be available before renting
+- Proper date/time validation
+- Accurate cost computation
+- Secure database transactions
+
+---
+
+## 🗄 Database Structure
+
+The system uses three main tables:
+
+### `users`
+- id (Primary Key)
+- name
+- surname
+- phone
+- email
+- password
+- type (admin/user)
+
+### `motorbikes`
+- code (Primary Key)
+- renting_location
+- description
+- cost_per_hour
+- status (available/rented)
+
+### `rentals`
+- id (Primary Key)
+- user_id (Foreign Key)
+- bike_code (Foreign Key)
+- start_datetime
+- end_datetime
+- total_cost
+- status (active/completed)
+
+Relational structure ensures proper tracking of rentals and user activity.
+
+---
+
+## 🧠 Technologies Used
+
+- PHP (Object-Oriented Programming)
+- MySQL
+- PDO (Prepared Statements)
+- HTML / CSS
+- PHP Sessions
+
+---
+
+## 🔐 Security Measures
+
+- Prepared statements to prevent SQL injection
+- Input validation on all forms
+- Role-based access restrictions
+- Session-based authentication
+
+---
+
+## 📦 Installation Guide
+
+1. Clone this repository:
+git clone https://github.com/yourusername/motocity.git
+
+
+2. Move project folder into your XAMPP `htdocs` directory.
+
+3. Start **Apache** and **MySQL** from XAMPP.
+
+4. Import the provided `motocity.sql` file into phpMyAdmin.
+
+5. Configure database credentials in:
+config/database.php
+
+
+6. Open in browser:
+http://localhost/MotoCity
+
+
+---
+
+## 🎯 Learning Outcomes
+
+This project demonstrates:
+
+- Object-Oriented PHP design
+- CRUD operations
+- Relational database modeling
+- Session management
+- Backend validation logic
+- Role-based system implementation
+
+---
+
+## 📌 Future Improvements
+
+- Add payment gateway integration
+- Implement booking time slots
+- Improve UI with modern frontend framework
+- Add reporting dashboard with analytics
+- Implement API version for mobile support
+
+---
+
+## 👨‍💻 Author
+
+Developed by Jiyavudeen  
+---
