@@ -19,6 +19,7 @@ try {
     // Test tables existence
     echo "<h2>Checking Database Tables...</h2>";
     
+    // Whitelist of expected tables for security
     $tables = ['users', 'motorbikes', 'rentals'];
     foreach ($tables as $table) {
         $stmt = $db->prepare("SHOW TABLES LIKE ?");
@@ -26,8 +27,9 @@ try {
         if ($stmt->rowCount() > 0) {
             echo "<p class='success'>✓ Table '$table' exists</p>";
             
-            // Count records using prepared statement
-            $countStmt = $db->prepare("SELECT COUNT(*) as count FROM $table");
+            // Count records - table name is from whitelist, safe to use in query
+            // Using prepared statement for count value consistency
+            $countStmt = $db->prepare("SELECT COUNT(*) as count FROM `$table`");
             $countStmt->execute();
             $count = $countStmt->fetch();
             echo "<p class='info'>  → Records: {$count['count']}</p>";
@@ -38,7 +40,8 @@ try {
     
     // Test admin user
     echo "<h2>Checking Admin User...</h2>";
-    $stmt = $db->query("SELECT username, email, role FROM users WHERE role = 'Admin'");
+    $stmt = $db->prepare("SELECT username, email, role FROM users WHERE role = ?");
+    $stmt->execute(['Admin']);
     $admin = $stmt->fetch();
     if ($admin) {
         echo "<p class='success'>✓ Admin user found: {$admin['username']} ({$admin['email']})</p>";
@@ -49,7 +52,8 @@ try {
     
     // Test sample motorbikes
     echo "<h2>Checking Sample Motorbikes...</h2>";
-    $stmt = $db->query("SELECT COUNT(*) as count FROM motorbikes");
+    $stmt = $db->prepare("SELECT COUNT(*) as count FROM motorbikes");
+    $stmt->execute();
     $bikeCount = $stmt->fetch();
     echo "<p class='success'>✓ Sample motorbikes: {$bikeCount['count']}</p>";
     

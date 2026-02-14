@@ -89,8 +89,9 @@ class Motorbike {
             return "Brand, model, year, and price per day are required";
         }
         
-        if (!is_numeric($data['year']) || $data['year'] < 1900 || $data['year'] > date('Y') + 1) {
-            return "Invalid year";
+        $yearValidation = $this->validateYear($data['year']);
+        if ($yearValidation !== true) {
+            return $yearValidation;
         }
         
         if (!is_numeric($data['price_per_day']) || $data['price_per_day'] <= 0) {
