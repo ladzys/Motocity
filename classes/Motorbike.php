@@ -5,8 +5,32 @@
 class Motorbike {
     private $db;
     
+    // Constants for validation
+    const MIN_YEAR = 1900;
+    const MAX_YEAR_OFFSET = 1; // Allow next year for pre-orders
+    
     public function __construct() {
         $this->db = Database::getInstance()->getConnection();
+    }
+    
+    /**
+     * Validate year input
+     * @param int $year
+     * @return bool|string True if valid, error message if invalid
+     */
+    private function validateYear($year) {
+        if (!is_numeric($year)) {
+            return "Year must be a number";
+        }
+        
+        $currentYear = (int)date('Y');
+        $maxYear = $currentYear + self::MAX_YEAR_OFFSET;
+        
+        if ($year < self::MIN_YEAR || $year > $maxYear) {
+            return "Year must be between " . self::MIN_YEAR . " and $maxYear";
+        }
+        
+        return true;
     }
     
     /**
@@ -104,8 +128,9 @@ class Motorbike {
             return "Brand, model, year, and price per day are required";
         }
         
-        if (!is_numeric($data['year']) || $data['year'] < 1900 || $data['year'] > date('Y') + 1) {
-            return "Invalid year";
+        $yearValidation = $this->validateYear($data['year']);
+        if ($yearValidation !== true) {
+            return $yearValidation;
         }
         
         if (!is_numeric($data['price_per_day']) || $data['price_per_day'] <= 0) {

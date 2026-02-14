@@ -21,12 +21,15 @@ try {
     
     $tables = ['users', 'motorbikes', 'rentals'];
     foreach ($tables as $table) {
-        $stmt = $db->query("SHOW TABLES LIKE '$table'");
+        $stmt = $db->prepare("SHOW TABLES LIKE ?");
+        $stmt->execute([$table]);
         if ($stmt->rowCount() > 0) {
             echo "<p class='success'>✓ Table '$table' exists</p>";
             
-            // Count records
-            $count = $db->query("SELECT COUNT(*) as count FROM $table")->fetch();
+            // Count records using prepared statement
+            $countStmt = $db->prepare("SELECT COUNT(*) as count FROM $table");
+            $countStmt->execute();
+            $count = $countStmt->fetch();
             echo "<p class='info'>  → Records: {$count['count']}</p>";
         } else {
             echo "<p class='error'>✗ Table '$table' NOT found</p>";

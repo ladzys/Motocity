@@ -146,7 +146,11 @@ class User {
      */
     public static function requireLogin() {
         if (!self::isLoggedIn()) {
-            header("Location: login.php");
+            // Calculate path to login.php from current directory
+            $path = (strpos($_SERVER['PHP_SELF'], '/admin/') !== false || strpos($_SERVER['PHP_SELF'], '/user/') !== false) 
+                ? '../login.php' 
+                : 'login.php';
+            header("Location: $path");
             exit();
         }
     }
@@ -157,7 +161,11 @@ class User {
     public static function requireAdmin() {
         self::requireLogin();
         if (!self::isAdmin()) {
-            header("Location: index.php");
+            // Redirect to parent directory index
+            $path = (strpos($_SERVER['PHP_SELF'], '/admin/') !== false) 
+                ? '../index.php' 
+                : 'index.php';
+            header("Location: $path");
             exit();
         }
     }

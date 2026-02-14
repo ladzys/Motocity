@@ -35,8 +35,12 @@ class Rental {
             return "Motorbike is not available";
         }
         
-        // Validate datetime format
-        $dateTime = DateTime::createFromFormat('Y-m-d H:i', $startDatetime);
+        // Validate datetime format (HTML5 datetime-local uses T separator)
+        $dateTime = DateTime::createFromFormat('Y-m-d\TH:i', $startDatetime);
+        // Try alternative format without T separator
+        if (!$dateTime) {
+            $dateTime = DateTime::createFromFormat('Y-m-d H:i', $startDatetime);
+        }
         if (!$dateTime) {
             return "Invalid datetime format. Use YYYY-MM-DD HH:MM";
         }
