@@ -1,0 +1,26 @@
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+/tmp/
+
+# Config files with sensitive data (optional - but config.php is included for demo)
+# config.php
+
+# Dependencies and packages (if using Composer)
+/vendor/
+composer.lock
+
+# Logs
+*.log
+error_log
