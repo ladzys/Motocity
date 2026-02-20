@@ -1,0 +1,159 @@
+:root {
+    --bg: #f6f8fb;
+    --panel: #ffffff;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --danger: #dc2626;
+    --ok-bg: #ecfdf3;
+    --ok-text: #166534;
+    --err-bg: #fef2f2;
+    --err-text: #991b1b;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+}
+
+.container {
+    max-width: 1080px;
+    margin: 26px auto;
+    padding: 0 16px;
+}
+
+.site-header {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 14px;
+}
+
+h1 {
+    margin: 0 0 10px;
+    font-size: 1.5rem;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+.main-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+a {
+    color: var(--primary);
+}
+
+.main-nav a,
+.action-link {
+    text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.main-nav a:hover,
+.action-link:hover {
+    border-color: #cfd7e3;
+}
+
+.content-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+}
+
+footer {
+    color: var(--muted);
+    text-align: center;
+    margin: 14px 0 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th,
+td {
+    border-bottom: 1px solid var(--border);
+    padding: 10px;
+    text-align: left;
+    vertical-align: top;
+}
+
+th {
+    background: #f9fafb;
+}
+
+form {
+    margin-bottom: 10px;
+}
+
+input,
+select,
+button,
+textarea {
+    font: inherit;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #cfd7e3;
+}
+
+button {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+    cursor: pointer;
+}
+
+button:hover {
+    background: var(--primary-hover);
+}
+
+.stack > * {
+    margin-bottom: 10px;
+}
+
+.error {
+    color: var(--err-text);
+}
+
+.flash {
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    border: 1px solid transparent;
+}
+
+.flash.success {
+    background: var(--ok-bg);
+    color: var(--ok-text);
+    border-color: #bbf7d0;
+}
+
+.flash.error {
+    background: var(--err-bg);
+    color: var(--err-text);
+    border-color: #fecaca;
+}
+
+.empty {
+    color: var(--muted);
+}
