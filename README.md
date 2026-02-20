@@ -66,10 +66,13 @@ Each motorbike includes:
 
 ## 💰 Rental Cost Calculation
 
-The total rental cost is calculated dynamically:
+The total rental cost is calculated dynamically using elapsed time:
 
-Total Cost = (Return Time - Start Time) × Cost Per Hour
+$$
+	ext{Total Cost} = \left(\frac{\text{Return Time} - \text{Start Time}}{3600}\right) \times \text{Cost Per Hour}
+$$
 
+The result is rounded to 2 decimal places.
 
 The system ensures:
 - Motorbike must be available before renting
@@ -84,29 +87,34 @@ The system ensures:
 The system uses three main tables:
 
 ### `users`
-- id (Primary Key)
-- name
-- surname
-- phone
-- email
-- password
-- type (admin/user)
+- `id` (Primary Key)
+- `first_name`
+- `last_name`
+- `phone`
+- `email`
+- `password_hash`
+- `user_type` (`ADMIN` / `USER`)
+- `created_at`
 
 ### `motorbikes`
-- code (Primary Key)
-- renting_location
-- description
-- cost_per_hour
-- status (available/rented)
+- `id` (Primary Key)
+- `code` (Unique)
+- `renting_location`
+- `description`
+- `cost_per_hour`
+- `is_active`
 
 ### `rentals`
-- id (Primary Key)
-- user_id (Foreign Key)
-- bike_code (Foreign Key)
-- start_datetime
-- end_datetime
-- total_cost
-- status (active/completed)
+- `id` (Primary Key)
+- `user_id` (Foreign Key → `users.id`)
+- `motorbike_id` (Foreign Key → `motorbikes.id`)
+- `start_time`
+- `end_time`
+- `cost_per_hour`
+- `total_cost`
+- `status` (`ONGOING` / `COMPLETED`)
+- `ongoing_key` (generated column for ongoing-rental constraint)
+- `created_at`
 
 Relational structure ensures proper tracking of rentals and user activity.
 
@@ -115,7 +123,7 @@ Relational structure ensures proper tracking of rentals and user activity.
 ## 🧠 Technologies Used
 
 - PHP (Object-Oriented Programming)
-- MySQL
+- MySQL / MariaDB
 - PDO (Prepared Statements)
 - HTML / CSS
 - PHP Sessions
@@ -125,31 +133,31 @@ Relational structure ensures proper tracking of rentals and user activity.
 ## 🔐 Security Measures
 
 - Prepared statements to prevent SQL injection
-- Input validation on all forms
+- Input validation on key forms via `Validator` class
 - Role-based access restrictions
 - Session-based authentication
+- Output escaping with `htmlspecialchars()`
 
 ---
 
 ## 📦 Installation Guide
 
-1. Clone this repository:
-git clone https://github.com/yourusername/motocity.git
+1. Move this project folder into your XAMPP `htdocs` directory.
+2. Start **Apache** and **MySQL** from XAMPP.
+3. Open **phpMyAdmin**.
+4. Import `sql/motocity.sql`.
+5. Configure database credentials in `config/database.php` if needed.
+6. Open in browser:  
+   `http://localhost/ISIT307/Motocity/`
 
+---
 
-2. Move project folder into your XAMPP `htdocs` directory.
+## 🔑 Default Admin Account
 
-3. Start **Apache** and **MySQL** from XAMPP.
+- Email: `admin@motocity.com`
+- Password: `Admin123!`
 
-4. Import the provided `motocity.sql` file into phpMyAdmin.
-
-5. Configure database credentials in:
-config/database.php
-
-
-6. Open in browser:
-http://localhost/MotoCity
-
+If login fails, create an admin via Register page or re-import the SQL script.
 
 ---
 
@@ -178,5 +186,4 @@ This project demonstrates:
 
 ## 👨‍💻 Author
 
-Developed by Jiyavudeen  
----
+Developed by Jiyavudeen
